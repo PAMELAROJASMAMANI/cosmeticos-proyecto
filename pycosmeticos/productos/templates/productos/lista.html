@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Productos - AYUMI{% endblock %}
+
+{% block content %}
+<!-- Categories Section -->
+<section class="categories-section">
+    <h1 class="section-title">Categorías</h1>
+    <div class="categories">
+        {% for categoria in categorias %}
+            <a href="?categoria={{ categoria.id }}" 
+            class="category-btn {% if categoria_seleccionada == categoria.id %}active{% endif %}">
+                {{ categoria.nombre }}
+            </a>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Search Bar -->
+<section class="search-section">
+    <div class="search-container">
+        <input type="text" class="search-bar" placeholder="Buscar productos, marcas...">
+        <div class="search-icon">🔍</div>
+    </div>
+</section>
+
+<!-- Recommended Products -->
+<section class="products-section">
+    <h2>Productos Recomendados</h2>
+    <div class="products-grid">
+        {% for p in qry_productos_lista %}
+        <a href="{% url 'productos:detalle' p.id %}">
+            <div class="product-card">
+                <div class="product-image">
+                    {% if p.imagen %}
+                        <img src="{{ p.imagen.url }}" alt="{{ p.nombre }}" style="max-width: 100%; height: auto;">
+                    {% else %}
+                        📦
+                    {% endif %}
+                    <button class="favorite-btn">♥</button>
+                </div>
+                <div class="product-info">
+                    <div class="product-brand">{{ p.tipo.categoria.nombre }}</div>
+                    <div class="product-name">{{ p.nombre }}</div>
+                    <div class="product-rating">
+                        <div class="stars">⭐⭐⭐⭐⭐</div>
+                        <div class="rating-text">(0)</div>
+                    </div>
+                    <div class="product-price">S/ {{ p.precio }}</div>
+                </div>
+            </div>
+        {% empty %}
+            <p>No hay productos disponibles.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

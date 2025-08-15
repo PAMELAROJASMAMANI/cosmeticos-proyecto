@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- Cabecera adicional específica de producto -->
+    <div class="product-header">
+        <a href="{% url 'productos:list' %}">← Volver a categorías</a>
+        <!-- Podrías poner breadcrumb o barra de navegación aquí -->
+    </div>
+
+    {% block product_detail %}
+        <!-- Aquí se incluirá el contenido del producto_detalle.html -->
+    {% endblock %}
+{% endblock %}

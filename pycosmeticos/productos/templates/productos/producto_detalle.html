@@ -1,0 +1,95 @@
+{% extends 'base_producto_detalle.html' %}
+
+{% block product_detail %}
+<div class="product-detail-container">
+    <div class="product-image">
+        {% if producto.imagen %}
+                <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+                {% else %}
+                <div class="no-image">📦</div>
+                {% endif %}
+            </div>
+
+    <div class="product-info">
+        <h1>{{ producto.nombre }}</h1>
+        <p>{{ producto.descripcion }}</p>
+        <p>Tipo: {{ producto.tipo.nombre }}</p>
+        <p>Color: {{ producto.color.nombre }}</p>
+
+        {% if precio_final != producto.precio %}
+            <p>Precio: <span class="original-price">S/ {{ producto.precio }}</span> 
+               <span class="discounted-price">S/ {{ precio_final }}</span>
+            </p>
+        {% else %}
+            <p>Precio: S/ {{ producto.precio }}</p>
+        {% endif %}
+        
+        <!-- Estrellas (dummy) -->
+        <div class="rating">
+            ★★★★☆ ({{ producto.reseñas.count }})
+        </div>
+
+        <button class="add-to-cart">Agregar al carrito 🛒</button>
+        <button class="favorite">♥</button>
+        
+        <div class="shipping-info">
+            Enviar a Perú<br>
+            Envío Estándar gratuito en compras > S/ 250 (15-20 días hábiles)<br>
+            Devoluciones y cambios
+        </div>
+        
+        <div class="editor-note">
+            Nota del Editor: Amplifica esas vibraciones veraniegas...
+        </div>
+        
+        <div class="product-details">
+            <h3>Detalles</h3>
+            <p>Ingredientes principales e información adicional...</p>
+        </div>
+
+        <!-- Botón volver a la categoría -->
+        <a href="{% url 'productos:list' %}" class="back-to-category">← Volver a Productos</a>
+
+    </div>
+</div>
+
+<!-- Productos similares -->
+<section class="similar-products">
+    <h2>Productos Similares</h2>
+    <div class="products-grid">
+        {% for p in productos_similares %}
+            <a href="{% url 'productos:detalle' p.id %}">
+                <div class="product-card">
+                    <div class="product-image">
+                        {% if p.imagen %}
+                            <img src="{{ p.imagen.url }}" alt="{{ p.nombre }}">
+                        {% else %}
+                            📦
+                        {% endif %}
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">{{ p.nombre }}</div>
+                        <div class="product-price">S/ {{ p.precio }}</div>
+                    </div>
+                </div>
+            </a>
+        {% empty %}
+            <p>No hay productos similares.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Reseñas -->
+<section class="product-reviews">
+    <h2>Reseñas</h2>
+    {% for r in producto.reseñas.all %}
+        <div class="review">
+            <p><strong>{{ r.usuario }}</strong> dice:</p>
+            <p>{{ r.comentario }}</p>
+        </div>
+    {% empty %}
+        <p>Aún no hay reseñas para este producto.</p>
+    {% endfor %}
+</section>
+
+{% endblock %}

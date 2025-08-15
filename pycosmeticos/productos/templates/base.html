@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}AYUMI - Tienda de Belleza{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="header-left">
+                <div class="flag-circle">🇵🇪</div>
+                <div class="help-icon">?</div>
+                <div class="quick-search">🔍</div>
+            </div>
+            <a href="#" class="logo">AYUMI</a>
+            <div class="header-right">
+                <!-- Menú desplegable de usuario -->
+                <div class="header-icon user-menu">
+                    🙍‍♂️
+                    <div class="user-dropdown">
+                        <a href="{% url 'login' %}">Iniciar sesión</a>
+                        <a href="{% url 'register' %}">Registrarme</a>
+                    </div>
+                </div>
+                <div class="header-icon">♥</div>
+                <div class="header-icon">🛒</div>
+</div>
+
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            {% block content %}
+            <!-- Aquí irá el contenido específico de cada página -->
+            {% endblock %}
+        </div>
+    </main>
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-blocks">
+            <div class="footer-block">
+                <button class="footer-toggle" onclick="toggleMenu('help-menu')">AYUDA +</button>
+                <ul class="footer-menu" id="help-menu">
+                    <li><a href="#">Seguimiento del pedido</a></li>
+                    <li><a href="#">Contáctanos</a></li>
+                    <li><a href="#">Atención al Cliente</a></li>
+                    <li><a href="#">Enviar E-mail al CEO</a></li>
+                </ul>
+            </div>
+            <div class="footer-block">
+                <button class="footer-toggle" onclick="toggleMenu('about-menu')">ACERCA DE NOSOTROS +</button>
+                <ul class="footer-menu" id="about-menu">
+                    <li><a href="#">Acerca de Ayumi</a></li>
+                    <li><a href="#">Relaciones con Inversionistas</a></li>
+                    <li><a href="#">Venta al por mayor</a></li>
+                </ul>
+            </div>
+        </div>
+        <p class="footer-description">
+            Productos de Belleza para el Cuidado de la Piel. Cosméticos económicos y K-Beauty: TonyMoly, COSRX, Faceshop, Nature Republic e Isntree.
+        </p>
+        <div class="footer-socials">
+            <a href="#"><img src="{% static 'icons/facebook.png' %}" alt="Facebook"></a>
+            <a href="#"><img src="{% static 'icons/instagram.png' %}" alt="Instagram"></a>
+            <a href="#"><img src="{% static 'icons/youtube.png' %}" alt="YouTube"></a>
+            <a href="#"><img src="{% static 'icons/tiktok.png' %}" alt="TikTok"></a>
+            <a href="#"><img src="{% static 'icons/pinterest.png' %}" alt="Pinterest"></a>
+        </div>
+        <p class="footer-copy">© 2025 Ayumi - Todos los derechos reservados</p>
+    </div>
+</footer>
+<script>
+function toggleMenu(id) {
+    const menu = document.getElementById(id);
+    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+}
+</script>
+</body>
+</html>
